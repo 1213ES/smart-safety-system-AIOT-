@@ -1,8 +1,3 @@
-# smart-safety-system-AIOT-
-# Smart Safety System
-
----
-
 # 1. 주제
 
 **스마트 세이프티 시스템 (Smart Safety System)**
@@ -42,7 +37,7 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 
 ---
 
-# 3. 목표
+# 2. 목표
 
 현장에서 안전모 미착용·근무 중 음주·과중 작업 지시 등이 실제로 빈번하게 발생한다. 이를 방지하기 위해 스마트 세이프티 시스템을 개발했다.
 
@@ -58,7 +53,7 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 
 ---
 
-# 4. 시스템 구성도
+# 3. 시스템 구성도
 
 ![image.png](attachment:cd90fd84-d150-4639-920e-4cd1026b0104:image.png)
 
@@ -98,7 +93,7 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 
 ---
 
-# 5. 기술 정리
+# 4. 기술 정리
 
 ## 하드웨어
 
@@ -137,7 +132,7 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 
 ---
 
-# 6. 주요 기능
+# 5. 주요 기능
 
 ## TCP 통신 구조
 
@@ -170,7 +165,7 @@ SQLite3 배치 commit + WAL 모드로 성능 최적화. 아래 섹션 참고.
 
 ---
 
-# 7. 데이터 저장 — 상세
+# 6. 데이터 저장 — 상세
 
 ## DB 구조 (helmet_sensor_data.db)
 
@@ -234,105 +229,3 @@ CREATE TABLE sensor_log (
 - 저장 완료 후 Qt로 ACCIDENT_VIDEO_SAVED JSON 전송
 
 ---
-
-# 8. 통신
-
-## Bluetooth SPP (STM32 → RPi5)
-
-패킷 형식
-
-```markdown
-[DATA] ax,ay,az,gx,gy,gz,pressure,adc,gas_do
-
-파싱 정규식
-\[DATA\]\s*(-?\d+),(-?\d+),(-?\d+),(-?\d+),(-?\d+),(-?\d+),(-?\d+),(-?\d+),(\d+)
-
-변환
-  ax = int(group(1)) / 10000.0
-  pressure = int(group(7)) / 100.0  → 800~1100 hPa 범위 검증
-  gas_do = int(group(9))            → 0 또는 1만 유효
-```
-
-역방향 (RPi5 → STM32 LCD)
-
-```markdown
-[BPM]075\r\n   심박수
-[HLM]1\r\n     착용=1 / 미착용=0
-[ACT]WALK\r\n  행동 (WALK / RUN / SIT / ------)
-
-주기 : 1초마다 DB 최신값 조회 → 변경된 항목만 전송
-```
-
-## WiFi TCP — 센서 채널 (포트 9090)
-
-```markdown
-방향 : 헬멧 RPi → 서버
-형식 : JSON 한 줄 + \n
-
-{
-  "seq": 1234,
-  "device_id": "helmet-01",
-  "data": {
-    "ax":0.1, "ay":-0.9, "az":9.8,
-    "gx":0.01, "gy":0.0, "gz":0.02,
-    "pressure":1013.25, "adc_avg":2048,
-    "bpm":72, "gas_do":0
-  },
-  "lux": 320.5,
-  "tracker": 1,
-  "helmet_on": true,
-  "work_min": 45,
-  "accel_mag": 9.85,
-  "accel_delta": 0.12,
-  "activity": "걷기",
-  "fall_detected": false,
-  "ts_client": "2025-03-08T14:32:01"
-}
-
-전송 실패 시 즉시 소켓 재연결 (무한 루프)
-```
-
-## WiFi TCP — 영상 채널 (포트 9091)
-
-```markdown
-방향 : 헬멧 RPi → 서버
-연결 직후 : "DEVID:helmet-01\n" 전송 (device_id 식별)
-프레임 형식 : [8byte 크기 헤더 little-endian uint64] + [JPEG 바이너리]
-해상도 : 320x240 / FPS : 15 / JPEG quality : 60
-
-GStreamer 파이프라인
-  libcamerasrc
-  → videoconvert
-  → videoscale
-  → video/x-raw,width=320,height=240,framerate=15/1
-  → jpegenc quality=60
-  → appsink
-```
-
-## Qt 채널 (포트 9092~9094)
-
-```markdown
-9092 : 서버 → Qt  영상 브로드캐스트 (8byte + JPEG)
-9093 : 서버 → Qt  센서 JSON 브로드캐스트 (activity / environment / alert 포함)
-9094 : Qt → 서버  명령 수신
-       "SWITCH:helmet-02\n" → 서버 활성 영상 헬멧 전환
-```
-
-## 다중 헬멧 지원 (C++ DeviceState)
-
-```markdown
-g_dev_map : map<device_id, DeviceState*>
-
-DeviceState 당 독립 보유
-  FrameQ      프레임 큐 (최대 2개, 초과 시 drop)
-  frame_buf   사고 전 10초 버퍼 (FPS × 10 프레임)
-  acc_active  사고 진행 중 플래그 (atomic<bool>)
-  prev_mtx    prev_pressure / prev_bpm race condition 방지
-
-스레드 구조
-  sensor_in_server()   헬멧별 handle_sensor_client() 스레드
-  video_in_server()    헬멧별 handle_video_client() + frame_processor_thread()
-  qt_video_server()    Qt 영상 브로드캐스터 등록
-  qt_sensor_server()   Qt 센서 브로드캐스터 등록
-  qt_cmd_server()      Qt SWITCH 명령 수신 (포트 9094)
-```

@@ -68,12 +68,14 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 
 # 3-1 센서정리
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/7011687d-19de-4f5d-8152-943ebb6f1224" width="500"/>
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/78c32710-4c1c-4c6e-be13-65b6c8e64cdb" width="500"/>
-</p>
+## 🔧 센서 정리
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7011687d-19de-4f5d-8152-943ebb6f1224" width="600"/>
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/78c32710-4c1c-4c6e-be13-65b6c8e64cdb" width="600"/>
+</p>
 
 # 3-2 하드웨어 사진
 <p align="center">

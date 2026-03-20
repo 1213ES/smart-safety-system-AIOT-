@@ -27,8 +27,10 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 ---
 
 # 3. 시스템 구성도
+<p align="center">
+  <img src="images/image1.png" width="700"/>
+</p>
 
-![image.png](attachment:cd90fd84-d150-4639-920e-4cd1026b0104:image.png)
 
 ```markdown
 [STM32 BAND]

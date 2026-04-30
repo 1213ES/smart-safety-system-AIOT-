@@ -12,7 +12,7 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
  
 ## 📌 프로젝트 개요
  
-- 📅 **수행 기간**: 2025.03 ~ 2025.06
+- 📅 **수행 기간**: 2025.02.24 ~ 2025.03.10
 - 🛠 **사용 기술**:
   - STM32 / Arduino IDE
   - Python 3 (Raspberry Pi 5)

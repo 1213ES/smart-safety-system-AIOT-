@@ -9,6 +9,26 @@
 STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 
 ---
+ 
+## 📌 프로젝트 개요
+ 
+- 📅 **수행 기간**: 2025.03 ~ 2025.06
+- 🛠 **사용 기술**:
+  - STM32 / Arduino IDE
+  - Python 3 (Raspberry Pi 5)
+  - C++17 / Qt Dashboard
+  - Bluetooth SPP / WiFi TCP 통신
+  - SQLite3 데이터베이스
+  - scikit-learn (Random Forest ML)
+  - GStreamer 영상처리
+- 🎯 **주요 기능**:
+  - MQ-3 알코올 센서 기반 음주 여부 감지 및 Qt 경보
+  - HW-827 맥박 센서 기반 심박수 이상 감지
+  - IR Tracker를 통한 헬멧 착용 여부 및 근로시간 자동 누적
+  - MPU-6050 6축 IMU + ML 기반 행동인식 및 낙상 감지
+  - GStreamer 사고 전후 10초 MP4 자동 저장
+  - Qt 대시보드 실시간 모니터링 및 STM32 LCD 역전송
+---
 
 # 2. 목표
 

@@ -143,7 +143,7 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 
 
 ---
-## 시연영상
+## ​🎬​시연영상​🎬​
 -헬멧 착용/미착용
 https://youtu.be/WrXsHzfWlzo
 

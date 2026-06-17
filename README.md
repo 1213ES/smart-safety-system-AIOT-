@@ -150,6 +150,9 @@ https://youtu.be/WrXsHzfWlzo
 -알콜감지
 https://youtu.be/WrXsHzfWlzo
 
+-행동인식
+https://youtu.be/R85sY5w1lYI
+
 ---
 
 # 5. 주요 기능

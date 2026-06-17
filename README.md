@@ -141,9 +141,15 @@ STM32 / Raspberry Pi 5 / Qt Dashboard / Bluetooth SPP / TCP / ML
 | Helmet RPi5 → Server | WiFi TCP | 9090 센서 JSON / 9091 영상 |
 | Server → Qt | WiFi TCP | 9092 영상 / 9093 센서 / 9094 SWITCH 명령 |
 
+
+---
 ## 시연영상
 -헬멧 착용/미착용
 https://youtu.be/WrXsHzfWlzo
+
+-알콜감지
+https://youtu.be/WrXsHzfWlzo
+
 ---
 
 # 5. 주요 기능
